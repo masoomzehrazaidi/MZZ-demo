@@ -1,0 +1,116 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPxafN4cDZg4fiujYPMxSQx",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/masoomzehrazaidi/MZZ-demo/blob/main/Documents\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 14,
+      "metadata": {
+        "id": "Fg1BroMc4FG8"
+      },
+      "outputs": [],
+      "source": [
+        "from sklearn.feature_extraction.text import TfidfVectorizer\n",
+        "import pandas as pd"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "documents = [\"the car is driven on the road\",\n",
+        "             \"the truck is driven on the road\",\n",
+        "             \"the car is parked\"\n",
+        "             ]"
+      ],
+      "metadata": {
+        "id": "TUjh-yt54QKc"
+      },
+      "execution_count": 15,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "vectorizer=TfidfVectorizer(lowercase=True,stop_words='english',smooth_idf=True)"
+      ],
+      "metadata": {
+        "id": "B1H_6biN4tYA"
+      },
+      "execution_count": 16,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "tfidf_matrix = vectorizer.fit_transform(documents)"
+      ],
+      "metadata": {
+        "id": "LtZMeFYV57DG"
+      },
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "vectorizer.fit(documents)\n",
+        "df_tfidf = pd.DataFrame(tfidf_matrix.toarray(),columns=vectorizer.get_feature_names_out())"
+      ],
+      "metadata": {
+        "id": "E2EMdQDx5F_9"
+      },
+      "execution_count": 20,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(df_tfidf)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "cvHZFOBQ610_",
+        "outputId": "b42c2f29-37ac-4dbf-cb7b-f691ec61f8eb"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "        car    driven    parked      road     truck\n",
+            "0  0.577350  0.577350  0.000000  0.577350  0.000000\n",
+            "1  0.000000  0.517856  0.000000  0.517856  0.680919\n",
+            "2  0.605349  0.000000  0.795961  0.000000  0.000000\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
